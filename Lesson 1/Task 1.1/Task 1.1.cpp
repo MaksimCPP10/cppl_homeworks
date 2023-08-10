@@ -1,8 +1,18 @@
 ﻿#include <iostream>
 #include <vector>
 #include <functional>
+#include <algorithm>
 
+void print(int a)
+{
+    std::cout << a << " ";
+}
 
+void check(int &a)    
+{
+    if (a % 2 == 1) { a *= 3; }
+    print(a);
+}
 
 int main()
 {
@@ -13,28 +23,13 @@ int main()
 
     std::cout << "\nВходные данные: ";
 
-    for (auto a : v1)
-    {
-        std::cout << a << " ";
-    }
-
+    for_each(begin(v1), end(v1), print);
+    
     std::cout << "\nВыходные данные: ";
 
     auto lambda=[](std::vector<int> &vec)
     {
-        for (auto &a : vec)
-        {
-            if (a % 2 == 1)
-            {
-                a *= 3;
-                std::cout << a << " ";
-            }
-            else
-            {
-                std::cout << a << " ";
-            }
-        }
-
+        for_each(begin(vec), end(vec), check);
     };
 
     lambda(v1);
