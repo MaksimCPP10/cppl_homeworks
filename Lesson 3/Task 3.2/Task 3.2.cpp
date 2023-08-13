@@ -24,15 +24,35 @@ public:
         }
     }
 
-   smart_array operator =(const smart_array& other)
-   {
-        arr = nullptr;
+    smart_array(const smart_array &other)
+    {
+        size = other.size;
         arr = new int[other.size];
         for (int i = 0; i < other.size; i++)
         {
             arr[i] = other.arr[i];
         }
-        return *arr;
+    }
+
+   smart_array& operator =(const smart_array& other)
+   {
+       if (this != &other)
+       {
+           if (arr != nullptr)
+           {
+               delete[] arr;
+           }
+
+           n = other.n;
+           size = other.size;
+
+           arr = new int[other.size];
+           for (int i = 0; i < other.size; i++)
+           {
+               arr[i] = other.arr[i];
+           }           
+       }
+        return *this;
    }
 
     void add_element(int a)
@@ -50,6 +70,10 @@ public:
         {
             throw std::exception("\n\aПопытка получить данные, находящиеся за \"границами\" массива!\n");
         }
+        else if (index >= n)
+        {
+            throw std::exception("\n\aПопытка получить данные элемента ещё не добавленного в массив!\n");
+        }
         else { return arr[index]; }
     }
 
@@ -58,13 +82,13 @@ public:
         static int count_del = 0;
         delete[] arr;
         
-        if (count_del <= 1)
+        if (count_del == 0)
         {
-            std::cout << "\nУдаление массива arr[].\n";
+            std::cout << "\nУдаление массива new_arr[].\n";
         }
         else
         {
-            std::cout << "\nУдаление массива new_arr[].\n";
+            std::cout << "\nУдаление массива arr[].\n";
         }
         count_del += 1;
     }

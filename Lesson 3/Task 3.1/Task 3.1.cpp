@@ -14,6 +14,8 @@ public:
         std::cout << "\nСоздан массив int arr[" << size << "] {0}.\n";
     }
 
+    smart_array(const smart_array&) = delete;
+
     void add_element(int a)
     {
         if (n < 0 || n >= size)
@@ -29,8 +31,14 @@ public:
         {
             throw std::exception("\n\aПопытка получить данные, находящиеся за \"границами\" массива!\n");
         }
+        else if (index >= n)
+        {
+            throw std::exception("\n\aПопытка получить данные элемента ещё не добавленного в массив!\n");
+        }
         else { return arr[index]; }
     }
+
+    smart_array operator =(const smart_array&) = delete;
     
     ~smart_array()
     {
@@ -51,7 +59,7 @@ int main()
         try
         {
             std::cout << "\nДобавление значения элемента в массив:\n";
-            for (int i = 0; i <= size; i++)
+            for (int i = 0; i < size-1; i++)
             {                
                 value=rand()%100;
                 arr.add_element(value);
