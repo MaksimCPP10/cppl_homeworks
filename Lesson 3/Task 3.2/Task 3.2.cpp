@@ -26,7 +26,9 @@ public:
 
     smart_array(const smart_array &other)
     {
+        n = other.n;
         size = other.size;
+
         arr = new int[other.size];
         for (int i = 0; i < other.size; i++)
         {
@@ -37,12 +39,11 @@ public:
    smart_array& operator =(const smart_array& other)
    {
        if (this != &other)
-       {
-           if (arr != nullptr)
-           {
-               delete[] arr;
-           }
-
+       {          
+           delete[] arr;
+           arr = nullptr;// Остался один вопрос: после очистки области памяти (delete[] arr), если я правильно помню, хорошим "тоном"
+                         // является и удаление указателя на эту область памяти. Или это делать не обязательно и указатель "перепишется"
+                         // при выполнении arr = new typename [size]?
            n = other.n;
            size = other.size;
 
