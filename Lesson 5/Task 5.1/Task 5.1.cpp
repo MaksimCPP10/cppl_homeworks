@@ -6,6 +6,15 @@ T square(T a)
 {
     return a * a;
 }
+template <>
+std::vector<int> square(std::vector<int> vec)
+{
+    for (auto &element : vec)
+    {
+        element *= element;
+    }
+    return vec;
+}
 
 
 int main()
@@ -31,11 +40,12 @@ int main()
     }
     std::cout << "\b\b }";
 
-       std::cout << "\n[OUT]:\t{ ";
-    for (auto element : vec)
+    std::vector<int> vec1 = square(vec);
+
+    std::cout << "\n[OUT]:\t{ ";
+    for (auto element : vec1)
     {
-        std::cout << square(element) << ", ";
+        std::cout << element << ", ";
     }
-    std::cout << "\b\b }\n";
-    
+    std::cout << "\b\b }\n";    
 }
