@@ -1,23 +1,8 @@
 ﻿#include <iostream>
 #include <map>
-#include <vector>
 #include <string>
-#include <algorithm>
 
-void sort_map(std::map<char, int>& S)
-{
-    std::vector < std::pair <char, int> > vec;
-    for (auto& it : S)
-        vec.push_back(it);
-
-    sort (vec.begin(), vec.end());
-
-    for (auto& it : vec)
-    {
-        std::cout << "\n" << "\'" << it.first << "\'" << " :  " << it.second;
-    }
-}
-
+typedef std::pair<char, int> pair;
 
 int main()
 {
@@ -32,22 +17,23 @@ int main()
 
     std::map<char, int> symb;
     
-    for (auto it : phrase)
+    for (const char &it : phrase)
     {
         symb[it]++;        
     } 
-       
-    //sort_map(symb);
-    /*
-    for (auto& it : symb)
+
+    std::multimap<int, char, std::greater<>> sym;
+
+    for (const auto& pair : symb)
     {
-        std::cout << "\n" << "\'" << it.first << "\'" << " :  " << it.second;
+        sym.insert(std::make_pair(pair.second, pair.first));
     }
-   */
-    for (auto it=symb.begin(); it!=symb.end(); it++)
+        
+    for (const auto &pair : sym)
     {
-        std::cout << "\n" << "\'" << it->first << "\'" << " :  " << it->second;
+        std::cout << "\n" << "\'" << pair.second << "\'" << " :  " << pair.first;
     }
-    
+ 
+    std::cout << "\n";
 
 }
